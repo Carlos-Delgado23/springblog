@@ -1,0 +1,35 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Roll-Dice</title>
+</head>
+<body>
+
+    <h1>PICK A NUMBER!</h1>
+    <a href="/roll-dice/1">1</a>
+    <a href="/roll-dice/2">2</a>
+    <a href="/roll-dice/3">3</a>
+    <a href="/roll-dice/4">4</a>
+    <a href="/roll-dice/5">5</a>
+    <a href="/roll-dice/6">6</a>
+
+<div th:if="${userRoll != null}">
+    <h1>Your guess <span th:text="${userRoll}"></span></h1>
+    <div th:each="roll : ${diceRolls}">
+        <p>Dice roll <span th:text="${roll}"></span></p>
+        <div th:if="${userRoll == roll}">
+            <p> Matched! </p>
+        </div>
+        <br>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>
