@@ -1,33 +1,45 @@
 package com.codeup.srpingblog.controllers;
 
 
+import com.codeup.srpingblog.models.Post;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 class PostController {
 
     @RequestMapping(path = "/posts", method = RequestMethod.GET)
-    @ResponseBody
+
     public String posts(){
-        return "post index page";
+        List<Post> postList = new ArrayList<>();
+
+        postList.add(new Post("Title 1", "Body 1"));
+        postList.add(new Post("Title 2", "Body 2"));
+        return "index";
     }
+
 
     @RequestMapping (path = "/posts/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String postsId(@PathVariable int id){
-        return "post the post with id of => " + id;
+        Post post = new Post("Title", "This is the body");
+
+        return "show";
     }
 
     @RequestMapping (path = "/posts/create", method = RequestMethod.GET)
     @ResponseBody
-    public String postsCreate(){
-        return "Form to create a post.";
+    public String createForm(){
+        return "/posts/create";
     }
 
     @PostMapping ("/posts/create")
     @ResponseBody
-    public String postCreateMethod(){
-        return "post the method button?";
+    public String postNewPost(){
+        return "/posts/create";
     }
 }

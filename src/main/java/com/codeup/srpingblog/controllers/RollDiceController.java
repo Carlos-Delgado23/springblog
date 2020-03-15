@@ -42,9 +42,9 @@ class RollDiceController {
         model.addAttribute("randRoll4", randRoll4);
 
         model.addAttribute("diceRolls", diceRolls);
-
         model.addAttribute("userRoll", userRoll);
         model.addAttribute("matched", matched);
+
         return "roll-dice";
     }
 }
