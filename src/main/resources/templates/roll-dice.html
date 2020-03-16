@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,12 +10,12 @@
 <body>
 
     <h1>PICK A NUMBER!</h1>
-    <a href="/roll-dice/1">1</a>
-    <a href="/roll-dice/2">2</a>
-    <a href="/roll-dice/3">3</a>
-    <a href="/roll-dice/4">4</a>
-    <a href="/roll-dice/5">5</a>
-    <a href="/roll-dice/6">6</a>
+    <h3><a th:href="@{/roll-dice/1}">1</a></h3>
+    <h3><a th:href="@{/roll-dice/2}">2</a></h3>
+    <h3><a th:href="@{/roll-dice/3}">3</a></h3>
+    <h3><a th:href="@{/roll-dice/4}">4</a></h3>
+    <h3><a th:href="@{/roll-dice/5}">5</a></h3>
+    <h3><a th:href="@{/roll-dice/6}">6</a></h3>
 
 <div th:if="${userRoll != null}">
     <h1>Your guess <span th:text="${userRoll}"></span></h1>

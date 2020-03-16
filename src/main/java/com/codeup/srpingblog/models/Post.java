@@ -5,9 +5,9 @@ public class Post {
     private String body;
 
 
-//    public Post(){
-//        //DEFAULT CONSTRUCTOR
-//    }
+    public Post(){
+        //DEFAULT CONSTRUCTOR
+    }
 
     //CONSTRUCTOR
     public Post(String title, String body) {
@@ -17,10 +17,10 @@ public class Post {
 
     //GETTERS
     public String getTitle() {
-        return title;
+        return this.title;
     }
     public String getBody() {
-        return body;
+        return this.body;
     }
 
     //SETTERS
