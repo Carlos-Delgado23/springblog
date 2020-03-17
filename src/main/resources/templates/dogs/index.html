@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dogs | Dogs | Dogs</title>
+</head>
+<body>
+<ul>
+    <li>
+        <h4><a th:href="@{/dogs}">View All</a></h4>
+    </li>
+    <li>
+        <h4><a th:href="@{/dogs/save}">Add a New Dog</a></h4>
+    </li>
+    <li>
+        <h4><a th:href="@{/dogs/update}">Edit Dog</a></h4>
+    </li>
+    <li>
+        <h4><a th:href="@{/dogs/delete}">Delete Dog</a></h4>
+    </li>
+</ul>
+
+<div th:each="dog : ${dogs}">
+    <h1 th:text="${dog.name}"></h1>
+</div>
+
+</body>
+</html>

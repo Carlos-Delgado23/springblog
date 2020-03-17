@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class Dog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (columnDefinition = "")
     private long id;
 
     @Column (columnDefinition = "TINYINT(3) UNSIGNED", nullable = false, length = 2)
@@ -16,7 +15,7 @@ public class Dog {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, columnDefinition = "CHAR(2) DEFAULT XX")
+    @Column(nullable = false, columnDefinition = "CHAR(2) DEFAULT 'XX'")
     private String resideState;
 
 
