@@ -42,7 +42,7 @@ class PostController {
 
     @RequestMapping (path = "/posts/create", method = RequestMethod.GET)
     @ResponseBody
-    public String createForm(){
+    public String createForm(Model model){
             Post post = new Post();
             post.setId(43);
             post.setTitle("NEW post");
@@ -66,21 +66,17 @@ class PostController {
 
 
     @GetMapping("/posts/edit")
-    @ResponseBody
-    public String editPost(String title){
-        Post post = postDao.getOne(2L);
-
-        post.setTitle("new updated title");
-        post.setBody("couple edits to body");
+    public String editPost(long id, Model model){
+        Post post = postDao.getOne(id);
+        model.addAttribute("title", post.getTitle());
+        model.addAttribute("body", post.getBody());
 
         postDao.save(post);
-
-        return "edited the post";
+        return "/posts/edit";
     }
 
-    @GetMapping("/posts/delete")
-    @ResponseBody
-    public String deletePost(String title){
+    @PostMapping("/posts/delete")
+    public String deletePost(){
 
         Post post = postDao.getOne(3L);
         postDao.delete(post);
