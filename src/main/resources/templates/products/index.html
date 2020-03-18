@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Products</title>
+</head>
+<body>
+
+<a href="products/create">Create Product</a>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+<!--        <th>In Stock</th>-->
+    </tr>
+    <tr th:each="prod : ${prods}">
+        <td th:text="${prod.name}">Prod Name</td>
+        <td style="width: 350px;" th:text="${prod.description}">Prod Descr.</td>
+        <td th:text="${prod.priceInCents}">Price</td>
+<!--        <td th:text="${prod.isInStock}">In Stock</td>-->
+        <td>
+        <a th:href="@{'/products/edit/' + ${prod.id}}">Edit</a>
+        &nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/products/delete/' + ${prod.id}}">Delete</a>
+        </td>
+
+    </tr>
+</table>
+
+</body>
+</html>

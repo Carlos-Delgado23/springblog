@@ -6,7 +6,12 @@ import com.codeup.srpingblog.repositories.ProductsRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class ProductsController {
@@ -18,10 +23,10 @@ public class ProductsController {
     }
 
     @GetMapping("/products")
-    public String viewProducts(){
-        productDao.findAll();
-
-        return "products";
+    public String viewProducts(Model model){
+        List<Product> prods = productDao.findAll();
+        model.addAttribute("prods", prods);
+        return "/products/index";
     }
 
     @GetMapping("/products/view")
@@ -29,39 +34,34 @@ public class ProductsController {
        Product product = productDao.getOne(id);
         model.addAttribute("product", product);
 
-        return "products/view";
+        return "/products/view";
     }
 
-
-    @GetMapping("/products/edit")
-    public String editProduct(Model model){
-        model.addAttribute("name", name);
-        model.addAttribute("description", description);
-        model.addAttribute("price", price);
-        model.addAttribute("inStock", inStock);
-
-        return "products/edit";
+    @GetMapping("/products/create")
+    public String viewCreateProdForm(Model model){
+        Product product = new Product();
+        model.addAttribute("product", product);
+        return "products/create";
     }
 
-    @PostMapping("/products/edit")
-    public String editProduct(long id, Model model){
-        Product product = productDao.getOne(id);
-
-        model.getAttribute("name", name);
-        model.getAttribute("description", description);
-        model.getAttribute("price", price);
-        model.getAttribute("inStock", inStock);
-
+    @PostMapping(value = "/save")
+    public String saveProduct(@ModelAttribute("product") Product product){
         productDao.save(product);
-
-        return "redirect:/products/view";
+        return "redirect:/products";
     }
 
+    @GetMapping("/products/edit/{id}")
+    public ModelAndView editProduct(@PathVariable(name = "id") Long id){
+        ModelAndView mav = new ModelAndView("/products/edit");
 
+        Product product = productDao.getOne(id);
+        mav.addObject("product", product);
+        return mav;
+    }
 
-    @GetMapping("/products/delete")
-    public String deleteProduct(){
-        productDao.delete();
+    @GetMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable(name = "id") Long id){
+        productDao.deleteById(id);
         return "redirect:/products";
     }
 }
