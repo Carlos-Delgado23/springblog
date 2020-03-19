@@ -2,6 +2,7 @@ package com.codeup.srpingblog.controllers;
 
 
 import com.codeup.srpingblog.models.Post;
+import com.codeup.srpingblog.models.User;
 import com.codeup.srpingblog.repositories.PostRepo;
 import com.codeup.srpingblog.repositories.UserRepo;
 import org.springframework.stereotype.Controller;
@@ -28,17 +29,15 @@ class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public String getPost(@PathVariable int id, Model model){
-        Post post1 = new Post(id, "Europa's First Post", "Remote Learning Today!");
-        model.addAttribute("title", post1.getTitle());
-        model.addAttribute("body", post1.getBody());
+    public String getPost(@PathVariable(name = "id") Long id, Model model){
+        Post post = postDao.getOne(id);
+        model.addAttribute("post", post);
         return "posts/show";
     }
 
     @GetMapping ("/posts/create")
     public String createForm(Model model){
             Post post = new Post();
-
             model.addAttribute("post", post);
             return "posts/create";
     }
@@ -72,7 +71,8 @@ class PostController {
     // save button
     @PostMapping(value = "/saveButton")
     public String savePost(@ModelAttribute("post") Post post){
-        userDao.save(post);
+        User user = new User(1, "Charlie", "c23delgado@gmail.com", "password123");
+        post.setUser(user);
         postDao.save(post);
         return "redirect:/posts";
     }

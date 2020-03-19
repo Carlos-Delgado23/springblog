@@ -26,14 +26,14 @@ public class Post {
     }
 
     //CONSTRUCTOR
-    public Post(long id, String title, String body) {
+    public Post(long id, String title, String body, User user) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.user = user;
     }
 
     //GETTERS
-
     public long getId() {
         return id;
     }
@@ -43,9 +43,9 @@ public class Post {
     public String getBody() {
         return this.body;
     }
+    public User getUser() { return this.user; }
 
     //SETTERS
-
     public void setId(long id) {
         this.id = id;
     }
@@ -55,4 +55,5 @@ public class Post {
     public void setBody(String body) {
         this.body = body;
     }
+    public void setUser(User user) { this.user = user; }
 }

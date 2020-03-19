@@ -10,11 +10,15 @@
 <body>
 
 <!--<div th:include="partials :: navbar"></div>-->
-<form action="" th:object="${posts}">
+<form th:action="@{/posts/show}" th:object="${post}">
 <h1 th:text="${post.title}"></h1>
 <p th:text="${post.body}"></p>
-<small><a th:href="@{/posts/edit}">Edit Post</a></small>
-<input type="button" name="delete" th:value="delete" value="delete">
+
+    <a th:href="@{|/posts/edit/${post.id}|}">edit</a>
+
+    <form th:action="@{|/posts/${post.id}/delete|}" th:method="POST">
+        <button>delete</button>
+    </form>
 <!--<div th:include="partials::footer"></div>-->
 </form>
 </body>
