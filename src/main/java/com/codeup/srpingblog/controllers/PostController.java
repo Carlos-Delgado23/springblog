@@ -25,6 +25,7 @@ class PostController {
     @RequestMapping(path = "/posts", method = RequestMethod.GET)
     public String viewPosts(Model model){
         model.addAttribute("posts", postDao.findAll());
+        model.addAttribute("users", userDao.findAll());
         return "/posts/index";
     }
 
@@ -35,11 +36,25 @@ class PostController {
         return "posts/show";
     }
 
+
+
+
+
+
+
     @GetMapping ("/posts/create")
-    public String createForm(Model model){
-            Post post = new Post();
-            model.addAttribute("post", post);
-            return "posts/create";
+    public String createForm(Model model, @ModelAttribute("post") Post postUser){
+        Post post = new Post();
+        post.setUser(userDao.getOne(4L));
+        model.addAttribute("post", post);
+        return "posts/create";
+    }
+
+    // save button
+    @PostMapping(value = "/saveButton")
+    public String savePost(@ModelAttribute("post") Post post){
+        postDao.save(post);
+        return "redirect:/posts";
     }
 
 //    @GetMapping("/posts/show/{id}")
@@ -65,15 +80,6 @@ class PostController {
         p.setTitle(title);
         p.setBody(body);
         postDao.save(p);
-        return "redirect:/posts";
-    }
-
-    // save button
-    @PostMapping(value = "/saveButton")
-    public String savePost(@ModelAttribute("post") Post post){
-        User user = new User(1, "Charlie", "c23delgado@gmail.com", "password123");
-        post.setUser(user);
-        postDao.save(post);
         return "redirect:/posts";
     }
 

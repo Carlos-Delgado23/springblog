@@ -14,6 +14,11 @@
 <div th:each="post : ${posts}">
 
     <h1 th:text="${post.title}"></h1>
+
+    <div th:each="user : ${users}">
+        <p>User: <span th:text="${user.username}"></span></p>
+    </div>
+
     <p th:text="${post.body}"></p>
 
     <a th:href="@{|/posts/edit/${post.id}|}">edit</a>
