@@ -9,11 +9,19 @@
 </head>
 <body>
 
+<a th:href="@{/posts/create}" >Create a Post</a>
+
 <div th:each="post : ${posts}">
 
     <h1 th:text="${post.title}"></h1>
     <p th:text="${post.body}"></p>
-    <a th:href="@{/posts/show}">View Post</a>
+
+    <a th:href="@{|/posts/edit/${post.id}|}">edit</a>
+
+    <form th:action="@{|/posts/${post.id}/delete|}" th:method="POST">
+        <button>delete</button>
+    </form>
+<!--    <a th:href="@{/posts/show}">View Post</a>-->
 
 </div>
 </body>

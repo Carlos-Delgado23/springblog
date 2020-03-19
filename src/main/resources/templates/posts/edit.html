@@ -8,8 +8,13 @@
 
 <div>
     <h3>Edit Post</h3>
-    <input type="text" name="title" placeholder="Title" th:name="title">
-    <textarea name="body" id="" th:name="body" cols="10" rows="2" placeholder="type body"></textarea>
+    <form th:action="@{|/posts/edit/${id}|}" th:method="POST" th:object="${post}">
+
+    <input type="text" name="title" placeholder="Title" th:name="title" th:value="${post.title}">
+    <textarea name="body" id="" th:name="body" cols="10" rows="2" placeholder="type body"
+              th:text="${post.body}"></textarea>
+        <button>Edit post</button>
+    </form>
 </div>
 
 </body>
