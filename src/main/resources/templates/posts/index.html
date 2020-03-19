@@ -15,9 +15,10 @@
 
     <h1 th:text="${post.title}"></h1>
 
-    <div th:each="user : ${users}">
-        <p>User: <span th:text="${user.username}"></span></p>
-    </div>
+<!--    <div th:each="user : ${users}">-->
+        <a th:href="'mailto:' + ${post.user.email}"><span th:text="${post.user.email}"></span></a>
+        <p>User: <span th:text="${post.user.username}"></span></p>
+<!--    </div>-->
 
     <p th:text="${post.body}"></p>
 
