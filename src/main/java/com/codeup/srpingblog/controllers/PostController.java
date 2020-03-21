@@ -5,6 +5,7 @@ import com.codeup.srpingblog.models.Post;
 import com.codeup.srpingblog.models.User;
 import com.codeup.srpingblog.repositories.PostRepo;
 import com.codeup.srpingblog.repositories.UserRepo;
+import com.codeup.srpingblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,12 @@ class PostController {
     private UserRepo userDao;
     private PostRepo postDao;
 
-    public PostController(PostRepo postDao, UserRepo userDao) {
+    private EmailService emailService;
+
+    public PostController(PostRepo postDao, UserRepo userDao, EmailService emailService) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
 
@@ -26,7 +30,7 @@ class PostController {
     public String viewPosts(Model model){
         model.addAttribute("posts", postDao.findAll());
         model.addAttribute("users", userDao.findAll());
-        return "/posts/index";
+        return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
@@ -35,12 +39,6 @@ class PostController {
         model.addAttribute("post", post);
         return "posts/show";
     }
-
-
-
-
-
-
 
     @GetMapping ("/posts/create")
     public String createForm(Model model, @ModelAttribute("post") Post postUser){
@@ -53,6 +51,7 @@ class PostController {
     // save button
     @PostMapping(value = "/saveButton")
     public String savePost(@ModelAttribute("post") Post post){
+        emailService.prepareAndSend(post, "This is the subject", "Hey welcome to our team");
         postDao.save(post);
         return "redirect:/posts";
     }

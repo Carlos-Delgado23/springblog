@@ -1,5 +1,6 @@
 package com.codeup.srpingblog.services;
 
+import com.codeup.srpingblog.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -10,16 +11,21 @@ import org.springframework.stereotype.Service;
 @Service("mailService")
 public class EmailService {
 
-    @Autowired
+//    @Autowired
     public JavaMailSender emailSender;
+
+    public EmailService(){}
+    public EmailService(JavaMailSender emailSender) {
+        this.emailSender = emailSender;
+    }
 
     @Value("${spring.mail.from}")
     private String from;
 
-    public void prepareAndSend(Ad ad, String subject, String body) {
+    public void prepareAndSend(Post post, String subject, String body) {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom(from);
-        msg.setTo(ad.getOwner().getEmail()); //change to what it needs to be
+        msg.setTo(post.getUser().getEmail()); //change to what it needs to be
         msg.setSubject(subject);
         msg.setText(body);
 
