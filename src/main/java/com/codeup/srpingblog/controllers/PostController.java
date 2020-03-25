@@ -6,6 +6,7 @@ import com.codeup.srpingblog.models.User;
 import com.codeup.srpingblog.repositories.PostRepo;
 import com.codeup.srpingblog.repositories.UserRepo;
 import com.codeup.srpingblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,10 +42,13 @@ class PostController {
     }
 
     @GetMapping ("/posts/create")
-    public String createForm(Model model, @ModelAttribute("post") Post postUser){
+    public String createForm(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         Post post = new Post();
-        post.setUser(userDao.getOne(4L));
+        post.setUser(user);
         model.addAttribute("post", post);
+        emailService.prepareAndSend(post, post.getTitle(), post.getBody());
         return "posts/create";
     }
 

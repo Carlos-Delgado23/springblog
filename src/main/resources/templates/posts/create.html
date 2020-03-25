@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Create Post</title>
 </head>
 <body>
 
-<div>
+<div sec:authorize="isAuthenticated()">
     <h3>Create Post</h3>
     <form th:action="@{/saveButton}" th:object="${post}" th:method="POST">
 
@@ -15,6 +15,11 @@
         <textarea name="body" id="" th:name="body" cols="10" rows="2" placeholder="type body"
                   th:text="${post.body}"></textarea>
         <button th:type="submit">Save</button>
+    </form>
+</div>
+<div>
+    <form th:action="@{/logout}" th:method="post">
+        <button class="btn-link btn" style="margin-top: 8px">Logout</button>
     </form>
 </div>
 

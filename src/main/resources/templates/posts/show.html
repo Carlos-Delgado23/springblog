@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -20,6 +20,9 @@
         <button>delete</button>
     </form>
 <!--<div th:include="partials::footer"></div>-->
+</form>
+<form th:action="@{/logout}" th:method="post">
+    <button class="btn-link btn" style="margin-top: 8px">Logout</button>
 </form>
 </body>
 </html>
